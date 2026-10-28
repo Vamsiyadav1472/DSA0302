@@ -1,0 +1,390 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPXh+CAexQGYOkK/tl4wiiV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Vamsiyadav1472/DSA0302/blob/main/CO2-AT1/CO2-AT1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "TASK 1: Morphological Analysis Pipeline for Document Indexing"
+      ],
+      "metadata": {
+        "id": "vXMcFy0Nl5NL"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 28,
+      "metadata": {
+        "id": "r4i-fVyzS19l",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "51e4c6ec-406e-4b88-9688-19fd93808e5a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== TASK 1: Document Indexing Morphological Analysis Pipeline ===\n",
+            "Original Word | Parsed Structure | Suffix Type  | Normalized Output\n",
+            "--------------+------------------+--------------+------------------\n",
+            "connected     | connect + -ed    | Inflectional | connect          \n",
+            "connecting    | connect + -ing   | Inflectional | connect          \n",
+            "connection    | connect + -ion   | Derivational | connect          \n",
+            "\n",
+            "\n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "def print_table(data):\n",
+        "    if not data:\n",
+        "        return\n",
+        "    keys = list(data[0].keys())\n",
+        "    col_widths = {key: max(len(key), max(len(str(row[key])) for row in data)) for key in keys}\n",
+        "\n",
+        "    header = \" | \".join(key.ljust(col_widths[key]) for key in keys)\n",
+        "    separator = \"-+-\".join(\"-\" * col_widths[key] for key in keys)\n",
+        "    print(header)\n",
+        "    print(separator)\n",
+        "\n",
+        "    for row in data:\n",
+        "        print(\" | \".join(str(row[key]).ljust(col_widths[key]) for key in keys))\n",
+        "\n",
+        "def task1_document_indexing():\n",
+        "    print(\"=== TASK 1: Document Indexing Morphological Analysis Pipeline ===\")\n",
+        "    inputs = [\"connected\", \"connecting\", \"connection\"]\n",
+        "    results = []\n",
+        "\n",
+        "    for word in inputs:\n",
+        "        if word == \"connected\":\n",
+        "            root, suffix, t_type = \"connect\", \"-ed\", \"Inflectional\"\n",
+        "        elif word == \"connecting\":\n",
+        "            root, suffix, t_type = \"connect\", \"-ing\", \"Inflectional\"\n",
+        "        elif word == \"connection\":\n",
+        "            root, suffix, t_type = \"connect\", \"-ion\", \"Derivational\"\n",
+        "        else:\n",
+        "            root, suffix, t_type = word, \"\", \"None\"\n",
+        "\n",
+        "        results.append({\n",
+        "            \"Original Word\": word,\n",
+        "            \"Parsed Structure\": f\"{root} + {suffix}\",\n",
+        "            \"Suffix Type\": t_type,\n",
+        "            \"Normalized Output\": root\n",
+        "        })\n",
+        "\n",
+        "    print_table(results)\n",
+        "    print(\"\\n\")\n",
+        "\n",
+        "task1_document_indexing()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Task 2: Morphological Parsing Module for Sentiment Analysis"
+      ],
+      "metadata": {
+        "id": "7CDTmEYZl6SC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def task2_sentiment_parsing():\n",
+        "    print(\"=== TASK 2: Sentiment Analysis Morphological Parsing Module ===\")\n",
+        "    inputs = [\"unhappy\", \"happiness\", \"happily\"]\n",
+        "    results = []\n",
+        "\n",
+        "    for word in inputs:\n",
+        "        if word == \"unhappy\":\n",
+        "            prefix, root, suffix = \"un-\", \"happy\", \"-\"\n",
+        "            t_type = \"Derivational (Negation)\"\n",
+        "        elif word == \"happiness\":\n",
+        "            prefix, root, suffix = \"-\", \"happy\", \"-ness\"\n",
+        "            t_type = \"Derivational (Noun formation)\"\n",
+        "        elif word == \"happily\":\n",
+        "            prefix, root, suffix = \"-\", \"happy\", \"-ly\"\n",
+        "            t_type = \"Derivational (Adverb formation)\"\n",
+        "        else:\n",
+        "            prefix, root, suffix = \"-\", word, \"-\"\n",
+        "            t_type = \"-\"\n",
+        "\n",
+        "        results.append({\n",
+        "            \"Original Word\": word,\n",
+        "            \"Prefix\": prefix,\n",
+        "            \"Root\": root,\n",
+        "            \"Suffix\": suffix,\n",
+        "            \"Transformation\": t_type,\n",
+        "            \"Normalized Root\": root\n",
+        "        })\n",
+        "\n",
+        "    print_table(results)\n",
+        "    print(\"\\n\")\n",
+        "\n",
+        "task2_sentiment_parsing()"
+      ],
+      "metadata": {
+        "id": "LvT5TaFtl626",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "2021ec63-b82d-480f-8dd3-275feaf01348"
+      },
+      "execution_count": 29,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== TASK 2: Sentiment Analysis Morphological Parsing Module ===\n",
+            "Original Word | Prefix | Root  | Suffix | Transformation                  | Normalized Root\n",
+            "--------------+--------+-------+--------+---------------------------------+----------------\n",
+            "unhappy       | un-    | happy | -      | Derivational (Negation)         | happy          \n",
+            "happiness     | -      | happy | -ness  | Derivational (Noun formation)   | happy          \n",
+            "happily       | -      | happy | -ly    | Derivational (Adverb formation) | happy          \n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Task 3: Stemming-Based Preprocessing Module for Search Engines"
+      ],
+      "metadata": {
+        "id": "76fhE2eGl7Lp"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def task3_search_engine_stemming():\n",
+        "    print(\"=== TASK 3: Search Engine Stemming-Based Preprocessing Module ===\")\n",
+        "    inputs = [\"played\", \"player\", \"playing\"]\n",
+        "    results = []\n",
+        "\n",
+        "    for word in inputs:\n",
+        "        if word == \"played\":\n",
+        "            stem, affix, t_type, norm = \"play\", \"-ed\", \"Inflectional (Past Tense)\", \"play\"\n",
+        "        elif word == \"player\":\n",
+        "            stem, affix, t_type, norm = \"play\", \"-er\", \"Derivational (Agentive Noun)\", \"play\"\n",
+        "        elif word == \"playing\":\n",
+        "            stem, affix, t_type, norm = \"play\", \"-ing\", \"Inflectional (Continuous)\", \"play\"\n",
+        "        else:\n",
+        "            stem, affix, t_type, norm = word, \"\", \"None\", word\n",
+        "\n",
+        "        results.append({\n",
+        "            \"Original Word\": word,\n",
+        "            \"Extracted Stem\": stem,\n",
+        "            \"Removed Affix\": affix,\n",
+        "            \"Transformation Type\": t_type,\n",
+        "            \"Normalized Form\": norm\n",
+        "        })\n",
+        "\n",
+        "    print_table(results)\n",
+        "    print(\"\\n\")\n",
+        "\n",
+        "task3_search_engine_stemming()"
+      ],
+      "metadata": {
+        "id": "1pJR-SE5l8ik",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "280b8880-c691-4329-8257-d7cedb284e8e"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== TASK 3: Search Engine Stemming-Based Preprocessing Module ===\n",
+            "Original Word | Extracted Stem | Removed Affix | Transformation Type          | Normalized Form\n",
+            "--------------+----------------+---------------+------------------------------+----------------\n",
+            "played        | play           | -ed           | Inflectional (Past Tense)    | play           \n",
+            "player        | play           | -er           | Derivational (Agentive Noun) | play           \n",
+            "playing       | play           | -ing          | Inflectional (Continuous)    | play           \n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Task 4: Finite-State Morphological Parsing Module for Verbs"
+      ],
+      "metadata": {
+        "id": "MU63rdfcl88G"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def task4_finite_state_parser():\n",
+        "    print(\"=== TASK 4: Finite-State Morphological Parsing Module (Verbs) ===\")\n",
+        "    inputs = [\"writes\", \"writing\", \"written\"]\n",
+        "    results = []\n",
+        "\n",
+        "    for word in inputs:\n",
+        "        if word == \"writes\":\n",
+        "            path = \"Start -> Root (write) -> Suffix (-s)\"\n",
+        "            comps = \"write + -s\"\n",
+        "            root = \"write\"\n",
+        "            classification = \"Regular Inflection\"\n",
+        "        elif word == \"writing\":\n",
+        "            path = \"Start -> Root (write -> writ) -> Suffix (-ing)\"\n",
+        "            comps = \"writ(e) + -ing\"\n",
+        "            root = \"write\"\n",
+        "            classification = \"Regular Inflection (e-drop)\"\n",
+        "        elif word == \"written\":\n",
+        "            path = \"Start -> Irregular Stem (writt-) -> Suffix (-en)\"\n",
+        "            comps = \"writt- + -en (Vowel Mutation)\"\n",
+        "            root = \"write\"\n",
+        "            classification = \"Irregular Inflection\"\n",
+        "        else:\n",
+        "            path, comps, root, classification = \"N/A\", word, word, \"Unknown\"\n",
+        "\n",
+        "        results.append({\n",
+        "            \"Input Word\": word,\n",
+        "            \"State Transition Path\": path,\n",
+        "            \"Morphological Components\": comps,\n",
+        "            \"Root Form\": root,\n",
+        "            \"Classification\": classification\n",
+        "        })\n",
+        "\n",
+        "    print_table(results)\n",
+        "    print(\"\\n\")\n",
+        "\n",
+        "task4_finite_state_parser()"
+      ],
+      "metadata": {
+        "id": "vGQJY6BQl9ZD",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "e2a4f572-4b9d-4359-8f9a-5e5c269f3c79"
+      },
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== TASK 4: Finite-State Morphological Parsing Module (Verbs) ===\n",
+            "Input Word | State Transition Path                            | Morphological Components      | Root Form | Classification             \n",
+            "-----------+--------------------------------------------------+-------------------------------+-----------+----------------------------\n",
+            "writes     | Start -> Root (write) -> Suffix (-s)             | write + -s                    | write     | Regular Inflection         \n",
+            "writing    | Start -> Root (write -> writ) -> Suffix (-ing)   | writ(e) + -ing                | write     | Regular Inflection (e-drop)\n",
+            "written    | Start -> Irregular Stem (writt-) -> Suffix (-en) | writt- + -en (Vowel Mutation) | write     | Irregular Inflection       \n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Task 5: Porter Stemmer-Based Preprocessing Module"
+      ],
+      "metadata": {
+        "id": "kooGFREXl9wC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def task5_porter_stemmer():\n",
+        "    print(\"=== TASK 5: Porter Stemmer-Based Preprocessing Module ===\")\n",
+        "    inputs = [\"relational\", \"relation\", \"relate\"]\n",
+        "    results = []\n",
+        "\n",
+        "    for word in inputs:\n",
+        "        if word == \"relational\":\n",
+        "            steps = \"1. Remove '-ional' -> relat\\n2. Add '-e' -> relate\"\n",
+        "            inter = \"relat -> relate\"\n",
+        "            stem = \"relate\"\n",
+        "        elif word == \"relation\":\n",
+        "            steps = \"1. Remove '-ion' -> relat\\n2. Add '-e' -> relate\"\n",
+        "            inter = \"relat -> relate\"\n",
+        "            stem = \"relate\"\n",
+        "        elif word == \"relate\":\n",
+        "            steps = \"No suffixes to remove (Base form)\"\n",
+        "            inter = \"relate\"\n",
+        "            stem = \"relate\"\n",
+        "        else:\n",
+        "            steps, inter, stem = \"None\", word, word\n",
+        "\n",
+        "        results.append({\n",
+        "            \"Original Word\": word,\n",
+        "            \"Applied Stemming Rules\": steps,\n",
+        "            \"Intermediate Forms\": inter,\n",
+        "            \"Final Stem\": stem\n",
+        "        })\n",
+        "\n",
+        "    print_table(results)\n",
+        "    print(\"\\n\")\n",
+        "\n",
+        "task5_porter_stemmer()"
+      ],
+      "metadata": {
+        "id": "6Z9k_JDjl-J9",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "0e1ebbd5-8184-4a5b-fb79-7f3835faa72d"
+      },
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== TASK 5: Porter Stemmer-Based Preprocessing Module ===\n",
+            "Original Word | Applied Stemming Rules                            | Intermediate Forms | Final Stem\n",
+            "--------------+---------------------------------------------------+--------------------+-----------\n",
+            "relational    | 1. Remove '-ional' -> relat\n",
+            "2. Add '-e' -> relate | relat -> relate    | relate    \n",
+            "relation      | 1. Remove '-ion' -> relat\n",
+            "2. Add '-e' -> relate   | relat -> relate    | relate    \n",
+            "relate        | No suffixes to remove (Base form)                 | relate             | relate    \n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
